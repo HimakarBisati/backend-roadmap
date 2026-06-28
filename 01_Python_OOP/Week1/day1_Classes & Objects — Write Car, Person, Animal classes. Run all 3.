@@ -1,1 +1,69 @@
+**W1-D1-Classes_and_Objects**
+Goal: Classes/objects are the foundation of Django models, views, serializers — get this solid first.
 
+```python
+class Car:
+    def __init__(self, brand, model, year):
+        self.brand = brand
+        self.model = model
+        self.year = year
+
+    def display_info(self):
+        print(f"{self.year} {self.brand} {self.model}")
+
+car1 = Car("Toyota", "Corolla", 2022)
+car2 = Car("Honda", "Civic", 2023)
+
+car1.display_info()
+car2.display_info()
+```
+
+Task: Add `is_new(self)` → True if year >= 2023. Test on both cars.
+
+```python
+class Person:
+    def __init__(self, name, age, city):
+        self.name = name
+        self.age = age
+        self.city = city
+
+    def introduce(self):
+        print(f"Hi, I'm {self.name}, {self.age} years old, from {self.city}")
+
+    def is_adult(self):
+        return self.age >= 18
+
+p1 = Person("Ravi", 22, "Hyderabad")
+p2 = Person("Sai", 16, "Bangalore")
+p1.introduce()
+print(p1.is_adult())
+p2.introduce()
+print(p2.is_adult())
+```
+
+```python
+class Animal:
+    def __init__(self, name, species):
+        self.name = name
+        self.species = species
+
+    def make_sound(self):
+        print("Some generic animal sound")
+
+a1 = Animal("Rex", "Dog")
+a2 = Animal("Milo", "Cat")
+a3 = Animal("Kiwi", "Bird")
+a1.make_sound()
+a2.make_sound()
+a3.make_sound()
+```
+
+Task: Combine all 3 classes above into one file `day1.py`.
+
+Break it: Remove `self.brand = brand` from Car's `__init__`, then run `car1.display_info()` again — see what error shows up.
+
+Real Coder Note: Name files and variables by what they actually represent (`car1`, not `c1` or `x`) — sloppy naming makes your own code hard to read a week later.
+
+Push to GitHub: `01_Python_OOP/Week1/day1.py` + paste this block into `01_Python_OOP/Week1/notes.md`
+
+Say "Day 2" when done.
