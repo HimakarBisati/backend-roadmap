@@ -1,1 +1,39 @@
+**W2-D1-Inheritance_Animal**
+Goal: Inheritance lets a child class reuse a parent's code and override specific parts — this is how Django's class-based views and models work under the hood.
 
+```python
+class Animal:
+    def __init__(self, name):
+        self.name = name
+
+    def sound(self):
+        print("Some generic animal sound")
+
+class Dog(Animal):
+    def sound(self):
+        print(f"{self.name} says Woof!")
+
+class Cat(Animal):
+    def sound(self):
+        print(f"{self.name} says Meow!")
+
+d1 = Dog("Rex")
+c1 = Cat("Whiskers")
+
+d1.sound()
+c1.sound()
+```
+
+Task: Add an `Animal` instance directly (not Dog/Cat) and call `.sound()` on it — confirm it uses the generic parent version since it doesn't override.
+
+Task: Create a third child class `Bird(Animal)` with its own `sound()` saying `"{name} says Tweet!"`. Test it.
+
+Task: Add a method `info(self)` in the parent `Animal` class that prints `f"{self.name} is an animal"`. Call `.info()` on a Dog and Cat object — notice it works on both without rewriting it, since it's inherited, not overridden.
+
+Break it: Remove `sound()` entirely from `Dog`, keep the class otherwise the same (`class Dog(Animal): pass`). Call `d1.sound()` again — notice it now prints the generic parent message instead of crashing, since Python looks up the parent class when the child doesn't define its own version.
+
+Real Coder Note: Override only what's actually different between child classes; let everything identical stay in the parent. Repeating identical code in every child class is a common beginner mistake — inheritance exists specifically to avoid that.
+
+Push to GitHub: `01_Python_OOP/Week2/day1.py` + paste this block into `01_Python_OOP/Week2/notes.md`
+
+Say "Day 2" when done.
