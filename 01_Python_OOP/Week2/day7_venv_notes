@@ -1,1 +1,41 @@
+**W2-D7-Virtual_Environment_Setup**
+Goal: Every Django project needs its own isolated set of packages — venv prevents different projects' dependencies from conflicting with each other. This is non-negotiable before starting Django next week.
 
+No new Python code today — this is a terminal/setup task.
+
+Run these commands in your room laptop terminal, inside a project folder:
+
+```bash
+# Create virtual environment
+python -m venv venv
+
+# Activate it (Windows)
+venv\Scripts\activate
+
+# Activate it (Mac/Linux)
+source venv/bin/activate
+```
+
+Once activated, you'll see `(venv)` appear at the start of your terminal line — that's confirmation it's active.
+
+```bash
+# Install Django inside the venv
+pip install django
+
+# Confirm it installed
+django-admin --version
+```
+
+Task: Deactivate the venv using `deactivate`, then run `django-admin --version` again — notice it fails or shows a different/no version, proving Django was installed only inside that venv, not globally on your system.
+
+Task: Reactivate the venv, run `pip freeze` — see a list of installed packages with exact versions. This is what goes into a `requirements.txt` file later (used in every real project so others can recreate your exact environment).
+
+Task: Run `pip freeze > requirements.txt` — open the file, see Django listed with its version number.
+
+Break it: Try installing a package (e.g. `pip install requests`) while the venv is NOT activated. Then activate the venv and run `pip freeze` — notice `requests` is missing from this venv's list, since it got installed globally/elsewhere instead. This shows exactly why forgetting to activate venv causes confusing "why isn't this package found" bugs later.
+
+Real Coder Note: Always activate your venv before installing anything or running your project — forgetting this is one of the most common beginner mistakes, and it causes confusing errors that look unrelated to the actual cause.
+
+Push to GitHub: `01_Python_OOP/Week2/day7_venv_notes.md` (just write down the commands you ran and what `requirements.txt` looked like) + paste this block into `01_Python_OOP/Week2/notes.md`
+
+Week 2 done — OOP phase complete. Before moving to Django: rebuild Inheritance + Encapsulation + Polymorphism examples from memory today or tomorrow, same as Week 1's Practice Day. Once confident, say "Week 3 Day 1" to start Django.
