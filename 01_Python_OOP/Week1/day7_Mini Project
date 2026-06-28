@@ -1,1 +1,60 @@
+**W1-D7-Mini_Project_Library_System**
+Goal: First time combining classes — one class holding a list of *other* objects. This is exactly how Django works later: Library = a database table, Book = a row/record. `add_book`, `search_book`, `remove_book` are the manual version of what Django's ORM (`.save()`, `.filter()`, `.delete()`) does for you automatically.
 
+```python
+class Book:
+    def __init__(self, title, author, is_available=True):
+        self.title = title
+        self.author = author
+        self.is_available = is_available
+
+    def __str__(self):
+        status = "Available" if self.is_available else "Borrowed"
+        return f"{self.title} by {self.author} - {status}"
+```
+
+```python
+class Library:
+    def __init__(self):
+        self.books = []
+
+    def add_book(self, book):
+        self.books.append(book)
+
+    def remove_book(self, title):
+        pass
+
+    def search_book(self, title):
+        pass
+
+    def borrow_book(self, title):
+        pass
+
+    def return_book(self, title):
+        pass
+
+    def show_all_books(self):
+        pass
+```
+
+Task: Fill in `remove_book` — find the book by title in `self.books`, remove it.
+
+Task: Fill in `search_book` — loop through `self.books`, return the Book object if title matches, else return None.
+
+Task: Fill in `borrow_book` — find the book, check `is_available`, if True set to False, else print "Not available".
+
+Task: Fill in `return_book` — find the book, set `is_available` back to True.
+
+Task: Fill in `show_all_books` — loop through `self.books`, print each one (uses `__str__` automatically).
+
+Task: Add `available_books(self)` → returns only books where `is_available == True`.
+
+Task: Create a Library, add 4-5 Book objects, test every method: add, search, borrow, return, remove, show all.
+
+Break it: Try borrowing a book title that doesn't exist — see it crash or silently do nothing. Fix `borrow_book` to print "Book not found" when `search_book` returns None.
+
+Real Coder Note: Building "manual" versions of things (like this Library) before using a framework's shortcut (Django ORM later) is why real coders aren't confused by frameworks — they already understand what's happening underneath.
+
+Push to GitHub: `01_Python_OOP/Week1/day7.py` + paste this block into `01_Python_OOP/Week1/notes.md`
+
+Week 1 done. Say "Week 2 Day 1" when ready.
