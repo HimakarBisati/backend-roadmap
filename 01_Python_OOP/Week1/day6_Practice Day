@@ -1,1 +1,18 @@
+**W1-D6-Practice_Day_Rebuild_From_Memory**
+Goal: This decides if Week 1 actually worked. No new topic — only rebuilding from memory separates "I followed along" from "I actually know this."
 
+No code given today. Do this in order, zero looking back at Day 2/3/4/5 files:
+
+Task: Open a blank file. Rebuild **BankAccount** completely from memory — `__init__`, `deposit`, `withdraw`, balance check, negative-amount check.
+
+Task: Open a blank file. Rebuild **Student** from memory — `average`, `result`, `grade`, `highest_mark`, `lowest_mark`.
+
+Task: Open a blank file. Rebuild **Employee** from memory — class variable `total_employees`, the classmethod, the staticmethod for salary validation.
+
+Break it: Only after all 3 are done from memory, open your real Day 2/3/4/5 files and compare. Wherever you got stuck or wrote something wrong — that's the exact gap you still have, not theoretical, specific to you.
+
+Real Coder Note: Rebuilding from memory daily/weekly is what real developers do without even calling it a technique — it's just how retention actually works. Skipping this step is the #1 reason people "finish" a roadmap but can't perform in interviews.
+
+Push to GitHub: `01_Python_OOP/Week1/day6.py` (your memory-rebuilt versions) + paste this block into `01_Python_OOP/Week1/notes.md`
+
+Say "Day 7" when ready.
