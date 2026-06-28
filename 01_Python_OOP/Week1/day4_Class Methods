@@ -1,1 +1,36 @@
+**W1-D4-Class_Methods_Employee**
+Goal: Class variables/methods share data across ALL objects, not just one — useful for counters, configs, and alternate ways to create objects.
 
+```python
+class Employee:
+    total_employees = 0
+
+    def __init__(self, name, salary):
+        self.name = name
+        self.salary = salary
+        Employee.total_employees += 1
+
+    @classmethod
+    def get_total_employees(cls):
+        return cls.total_employees
+
+e1 = Employee("Ravi", 30000)
+e2 = Employee("Sai", 40000)
+e3 = Employee("Anu", 35000)
+
+print(Employee.get_total_employees())
+```
+
+Task: Add a class variable `company_name = "TechCorp"`, accessible as `Employee.company_name` without creating any object.
+
+Task: Add a classmethod `from_string(cls, data_string)` that takes a string like `"Ravi-30000"`, splits it with `.split("-")`, and returns a new Employee built from those two parts. Test: `e4 = Employee.from_string("Kiran-28000")`.
+
+Task: Create 2 more employees, print `Employee.get_total_employees()` again to confirm the shared count kept growing.
+
+Break it: Change `Employee.total_employees += 1` to `self.total_employees += 1` — create 3 employees, then check `Employee.total_employees` directly. Notice it stays 0, while each object secretly made its own separate copy instead of sharing one.
+
+Real Coder Note: Use class variables only for data truly shared across all objects (counters, config) — mixing it up with instance data (`self.x`) is a common silent bug, no crash, just wrong numbers.
+
+Push to GitHub: `01_Python_OOP/Week1/day4.py` + paste this block into `01_Python_OOP/Week1/notes.md`
+
+Say "Day 5" when done.
