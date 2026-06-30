@@ -1,0 +1,55 @@
+**W3-D1-Django_Setup**
+
+**Today you learn:**
+- Installing Django, creating a project
+- Understanding folder structure
+- Running the dev server
+
+---
+
+**1. Install and create project**
+
+```bash
+pip install django                      # install Django (inside your venv)
+django-admin startproject myproject .   # the dot creates project in current folder, not a new subfolder
+```
+
+---
+
+**2. Folder structure created**
+
+```
+myproject/
+    settings.py     # all project configuration lives here
+    urls.py         # main URL routing file
+    wsgi.py         # used when deploying to production servers
+    asgi.py         # used for async features
+manage.py            # command-line tool to run/manage the project
+```
+
+---
+
+**3. Run the server**
+
+```bash
+python manage.py runserver
+```
+
+```text
+# opens at http://127.0.0.1:8000/
+# you'll see Django's default welcome page if setup worked
+```
+
+---
+
+**4. Key file to know today**
+
+`settings.py` — important parts to notice right now:
+```python
+INSTALLED_APPS = [...]   # list of all active apps in your project, you'll add your own apps here later
+DATABASES = {...}        # currently SQLite by default, you'll switch to PostgreSQL in Week 3 Saturday
+```
+
+---
+
+Any doubts ask me. Say "W3 D2" when ready.
