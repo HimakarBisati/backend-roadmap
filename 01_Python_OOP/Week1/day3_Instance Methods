@@ -1,41 +1,54 @@
 **W1-D3-Instance_Methods_Student**
-Goal: Same pattern as before, formal name now — instance methods that make decisions using an object's own data. Django model methods work exactly this way.
+
+**Today you learn:**
+- Methods calling other methods inside same class
+- `return` vs `print`
+- Decision making using object's own data
+
+---
+
+**1. Student**
 
 ```python
 class Student:
     def __init__(self, name, marks):
         self.name = name
-        self.marks = marks
+        self.marks = marks  # list [80, 45, 60]
 
     def average(self):
-        return sum(self.marks) / len(self.marks)
+        return sum(self.marks) / len(self.marks)  # return sends value back to whoever called it
 
     def result(self):
-        avg = self.average()
+        avg = self.average()  # calling another method inside same class
         if avg >= 40:
             return "Pass"
         else:
             return "Fail"
 
+    def grade(self):
+        avg = self.average()  # reusing average() instead of recalculating
+        if avg >= 75:
+            return "A"
+        elif avg >= 60:
+            return "B"
+        elif avg >= 40:
+            return "C"
+        else:
+            return "F"
+
+    def highest_mark(self):
+        return max(self.marks)  # max() finds highest in list
+
+    def lowest_mark(self):
+        return min(self.marks)  # min() finds lowest in list
+
 s1 = Student("Ravi", [80, 45, 60])
 s2 = Student("Sai", [30, 25, 35])
 
-print(s1.name, "->", s1.result())
-print(s2.name, "->", s2.result())
+print(s1.name, s1.result(), s1.grade(), s1.highest_mark(), s1.lowest_mark())
+print(s2.name, s2.result(), s2.grade(), s2.highest_mark(), s2.lowest_mark())
 ```
 
-Task: Add `highest_mark(self)` → `max(self.marks)`.
+---
 
-Task: Add `lowest_mark(self)` → `min(self.marks)`.
-
-Task: Add `grade(self)` → calls `self.average()`, returns "A" (>=75), "B" (>=60), "C" (>=40), else "F".
-
-Task: Create 3 Student objects with different marks, print name, result, grade, highest, lowest for each.
-
-Break it: Change `return` to `print` inside `average()` — run again, see it crash since `result()` gets `None` back instead of a real number.
-
-Real Coder Note: Break big logic into small methods that call each other (`result()` uses `average()`) — this is how real codebases stay readable instead of one giant function doing everything.
-
-Push to GitHub: `01_Python_OOP/Week1/day3.py` + paste this block into `01_Python_OOP/Week1/notes.md`
-
-Say "Day 4" when done.
+Any doubts ask me. Say "W1 D4" when ready.
