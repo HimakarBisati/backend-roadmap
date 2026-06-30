@@ -1,5 +1,12 @@
 **W2-D1-Inheritance_Animal**
-Goal: Inheritance lets a child class reuse a parent's code and override specific parts — this is how Django's class-based views and models work under the hood.
+
+**Today you learn:**
+- Inheritance — child class reuses parent's code
+- Overriding methods in child class
+
+---
+
+**1. Animal → Dog, Cat**
 
 ```python
 class Animal:
@@ -9,31 +16,37 @@ class Animal:
     def sound(self):
         print("Some generic animal sound")
 
-class Dog(Animal):
-    def sound(self):
+    def info(self):
+        print(f"{self.name} is an animal")  # inherited as-is by children, no need to rewrite
+
+
+class Dog(Animal):  # Dog inherits from Animal
+    def sound(self):  # overrides parent's sound()
         print(f"{self.name} says Woof!")
 
+
 class Cat(Animal):
-    def sound(self):
+    def sound(self):  # overrides parent's sound()
         print(f"{self.name} says Meow!")
+
+
+class Bird(Animal):
+    def sound(self):
+        print(f"{self.name} says Tweet!")
+
 
 d1 = Dog("Rex")
 c1 = Cat("Whiskers")
+b1 = Bird("Kiwi")
 
-d1.sound()
-c1.sound()
+d1.sound()   # Rex says Woof!
+c1.sound()   # Whiskers says Meow!
+b1.sound()   # Kiwi says Tweet!
+
+d1.info()    # Rex is an animal - inherited, not rewritten in Dog
+c1.info()    # Whiskers is an animal
 ```
 
-Task: Add an `Animal` instance directly (not Dog/Cat) and call `.sound()` on it — confirm it uses the generic parent version since it doesn't override.
+---
 
-Task: Create a third child class `Bird(Animal)` with its own `sound()` saying `"{name} says Tweet!"`. Test it.
-
-Task: Add a method `info(self)` in the parent `Animal` class that prints `f"{self.name} is an animal"`. Call `.info()` on a Dog and Cat object — notice it works on both without rewriting it, since it's inherited, not overridden.
-
-Break it: Remove `sound()` entirely from `Dog`, keep the class otherwise the same (`class Dog(Animal): pass`). Call `d1.sound()` again — notice it now prints the generic parent message instead of crashing, since Python looks up the parent class when the child doesn't define its own version.
-
-Real Coder Note: Override only what's actually different between child classes; let everything identical stay in the parent. Repeating identical code in every child class is a common beginner mistake — inheritance exists specifically to avoid that.
-
-Push to GitHub: `01_Python_OOP/Week2/day1.py` + paste this block into `01_Python_OOP/Week2/notes.md`
-
-Say "Day 2" when done.
+Any doubts ask me. Say "W2 D2" when ready.
