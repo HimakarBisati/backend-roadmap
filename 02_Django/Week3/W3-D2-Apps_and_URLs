@@ -1,0 +1,85 @@
+**W3-D2-Apps_and_URLs**
+
+**Today you learn:**
+- Creating an app inside your project
+- Writing your first view
+- Connecting a URL to that view
+
+---
+
+**1. Create an app**
+
+```bash
+python manage.py startapp blog
+```
+
+```
+blog/
+    views.py      # write your view functions here
+    models.py     # database tables go here (later)
+    urls.py       # you create this yourself, not auto-generated
+    apps.py
+```
+
+Register the app in `myproject/settings.py`:
+```python
+INSTALLED_APPS = [
+    ...,
+    'blog',   # add your app here so Django knows it exists
+]
+```
+
+---
+
+**2. Write first view**
+
+`blog/views.py`:
+```python
+from django.http import HttpResponse
+
+def hello_view(request):  # every view function takes 'request' as first parameter
+    return HttpResponse("Hello World")  # sends text back to browser
+```
+
+---
+
+**3. Connect URL — app level**
+
+`blog/urls.py` (create this file yourself):
+```python
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('hello/', views.hello_view),  # visiting /hello/ runs hello_view
+]
+```
+
+---
+
+**4. Connect URL — project level**
+
+`myproject/urls.py`:
+```python
+from django.urls import path, include
+
+urlpatterns = [
+    path('blog/', include('blog.urls')),  # forwards blog/... to blog app's urls.py
+]
+```
+
+---
+
+**5. Test it**
+
+```bash
+python manage.py runserver
+```
+```text
+# visit http://127.0.0.1:8000/blog/hello/
+# should print: Hello World
+```
+
+---
+
+Any doubts ask me. Say "W3 D3" when ready.
