@@ -1,11 +1,19 @@
 **W2-D3-Encapsulation_Private_Variables**
-Goal: Encapsulation means hiding internal data so it can't be changed carelessly from outside — this is why Django models use validation, and why direct database edits are considered bad practice.
+
+**Today you learn:**
+- Private variables using `__`
+- Getter and setter methods
+- Why we hide data
+
+---
+
+**1. BankAccount with private balance**
 
 ```python
 class BankAccount:
     def __init__(self, owner, balance):
         self.owner = owner
-        self.__balance = balance   # double underscore = private
+        self.__balance = balance  # double underscore = private, can't access directly from outside
 
     def deposit(self, amount):
         if amount > 0:
@@ -19,32 +27,25 @@ class BankAccount:
         else:
             self.__balance -= amount
 
-    def get_balance(self):
+    def get_balance(self):  # getter - controlled way to read private data
         return self.__balance
 
-    def set_balance(self, amount):
+    def set_balance(self, amount):  # setter - controlled way to change private data
         if amount >= 0:
             self.__balance = amount
         else:
             print("Balance cannot be negative")
 
+
 acc1 = BankAccount("Ravi", 1000)
 acc1.deposit(500)
-print(acc1.get_balance())
+print(acc1.get_balance())   # 1500 - works through getter
+
+# acc1.__balance         <- this would error, can't access private directly
+acc1.set_balance(-500)      # blocked, prints warning
+print(acc1.get_balance())   # still 1500, unchanged
 ```
 
-`__balance` (double underscore) is new — it makes the attribute "private," meaning you can't directly access it from outside as `acc1.__balance` (try it, it'll error). Instead you must use `get_balance()` and `set_balance()` — these are called getter and setter methods. This forces every change to go through validation, instead of someone setting `acc1.balance = -99999` directly and breaking your data.
+---
 
-Task: Try `print(acc1.__balance)` directly outside the class — see the error. Then use `print(acc1.get_balance())` instead — see it work fine.
-
-Task: Add a private attribute `__pin` in `__init__`. Add a method `change_pin(self, old_pin, new_pin)` that only updates `__pin` if `old_pin` matches the current one, else prints "Wrong PIN".
-
-Task: Try `acc1.set_balance(-500)` — confirm your validation blocks it and prints the warning instead of changing balance.
-
-Break it: Change `self.__balance` to `self.balance` (single, not private) everywhere in the class. Now try `acc1.balance = -99999` directly from outside — notice it works with zero validation, silently breaking your data. This is exactly the bug encapsulation prevents.
-
-Real Coder Note: Never expose raw data that should be controlled — always go through a method that can validate. This single habit is why production apps don't randomly break from one careless line of code.
-
-Push to GitHub: `01_Python_OOP/Week2/day3.py` + paste this block into `01_Python_OOP/Week2/notes.md`
-
-Say "Day 4" when done.
+Any doubts ask me. Say "W2 D4" when ready.
