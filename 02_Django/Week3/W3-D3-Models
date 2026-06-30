@@ -1,0 +1,58 @@
+**W3-D3-Models**
+
+**Today you learn:**
+- Creating a model (database table as a Python class)
+- Migrations — turning model into actual database table
+
+---
+
+**1. Create the model**
+
+`blog/models.py`:
+```python
+from django.db import models
+
+class Post(models.Model):  # inherits from models.Model, not a normal class
+    title = models.CharField(max_length=200)     # short text field
+    content = models.TextField()                  # long text field
+    created_at = models.DateTimeField(auto_now_add=True)  # auto-fills date when created
+
+    def __str__(self):
+        return self.title  # controls how object shows in admin/shell
+```
+
+---
+
+**2. Run migrations — this creates the actual database table**
+
+```bash
+python manage.py makemigrations   # creates migration file describing the change
+python manage.py migrate          # applies that change to the database
+```
+
+```text
+# makemigrations = "write down what changed"
+# migrate = "actually apply it to the database"
+# always run both, in this order, every time you change models.py
+```
+
+---
+
+**3. Check it worked — Django shell**
+
+```bash
+python manage.py shell
+```
+
+```python
+from blog.models import Post
+
+p1 = Post(title="My First Post", content="Hello Django")
+p1.save()   # saves this object as a row in the database
+
+Post.objects.all()   # shows all rows in the Post table
+```
+
+---
+
+Any doubts ask me. Say "W3 D4" when ready.
