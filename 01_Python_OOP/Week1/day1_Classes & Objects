@@ -1,0 +1,80 @@
+**W1-D1-Classes_and_Objects**
+
+**Today you learn:**
+- Classes & Objects
+- `__init__` and `self`
+- Instance methods
+
+---
+
+**1. Class & Object**
+
+```python
+class Car:  # blueprint
+    def __init__(self, brand, model, year):  # runs when object created
+        self.brand = brand  # save to this object
+        self.model = model
+        self.year = year
+
+    def display_info(self):  # method = function inside class
+        print(f"{self.year} {self.brand} {self.model}")
+
+    def is_new(self):
+        return self.year >= 2023  # True or False
+
+car1 = Car("Toyota", "Corolla", 2022)  # object 1
+car2 = Car("Honda", "Civic", 2023)     # object 2
+
+car1.display_info()  # 2022 Toyota Corolla
+car2.display_info()  # 2023 Honda Civic
+print(car1.is_new()) # False
+print(car2.is_new()) # True
+```
+
+---
+
+**2. Person**
+
+```python
+class Person:
+    def __init__(self, name, age, city):
+        self.name = name
+        self.age = age
+        self.city = city
+
+    def introduce(self):
+        print(f"Hi I'm {self.name}, {self.age}, from {self.city}")
+
+    def is_adult(self):
+        return self.age >= 18  # True or False
+
+p1 = Person("Ravi", 22, "Hyderabad")
+p1.introduce()
+print(p1.is_adult())
+```
+
+---
+
+**3. Animal**
+
+```python
+class Animal:
+    def __init__(self, name, species):
+        self.name = name
+        self.species = species
+
+    def make_sound(self):
+        print("Some generic animal sound")  # week 2 each animal gets own sound
+
+a1 = Animal("Rex", "Dog")
+a1.make_sound()
+```
+
+---
+
+**Task:**
+Build a `Bike` class yourself — attributes: `brand`, `speed`. Method: `is_fast()` → True if speed > 100. Create 2 Bike objects, test `is_fast()` on both.
+
+---
+
+Any doubts ask me. Say "W1 D2 notes" when ready.
