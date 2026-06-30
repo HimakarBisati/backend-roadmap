@@ -1,13 +1,13 @@
 **W1-D1-Classes_and_Objects**
 
 **Today you learn:**
-- Classes & Objects
+- Class & Object
 - `__init__` and `self`
 - Instance methods
 
 ---
 
-**1. Class & Object**
+**1. Car**
 
 ```python
 class Car:  # blueprint
@@ -22,13 +22,12 @@ class Car:  # blueprint
     def is_new(self):
         return self.year >= 2023  # True or False
 
-car1 = Car("Toyota", "Corolla", 2022)  # object 1
-car2 = Car("Honda", "Civic", 2023)     # object 2
-
-car1.display_info()  # 2022 Toyota Corolla
-car2.display_info()  # 2023 Honda Civic
-print(car1.is_new()) # False
-print(car2.is_new()) # True
+car1 = Car("Toyota", "Corolla", 2022)
+car2 = Car("Honda", "Civic", 2023)
+car1.display_info()
+car2.display_info()
+print(car1.is_new())
+print(car2.is_new())
 ```
 
 ---
@@ -46,7 +45,7 @@ class Person:
         print(f"Hi I'm {self.name}, {self.age}, from {self.city}")
 
     def is_adult(self):
-        return self.age >= 18  # True or False
+        return self.age >= 18
 
 p1 = Person("Ravi", 22, "Hyderabad")
 p1.introduce()
@@ -64,7 +63,7 @@ class Animal:
         self.species = species
 
     def make_sound(self):
-        print("Some generic animal sound")  # week 2 each animal gets own sound
+        print("Some generic animal sound")
 
 a1 = Animal("Rex", "Dog")
 a1.make_sound()
@@ -72,9 +71,4 @@ a1.make_sound()
 
 ---
 
-**Task:**
-Build a `Bike` class yourself — attributes: `brand`, `speed`. Method: `is_fast()` → True if speed > 100. Create 2 Bike objects, test `is_fast()` on both.
-
----
-
-Any doubts ask me. Say "W1 D2 notes" when ready.
+Any doubts ask me. Say "W1 D2" when ready.
