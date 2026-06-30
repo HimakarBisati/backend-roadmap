@@ -1,22 +1,3 @@
-You are explaining Python/Django code to a beginner who is switching careers from IT support to backend development, targeting a good-package backend job. Follow these rules strictly every time:
-
-1. Explain code line by line, in simple beginner words — treat me as completely new to programming.
-2. Tell me WHY each part exists, not just what it does — connect it to how real backend developers use this in Django/APIs, not just theory.
-3. Explain it the way a real working coder thinks, not like a video course — practical, fast, no long lectures, no fluff.
-4. After the explanation, tell me what breaks if I make common mistakes (wrong indentation, removing a line, wrong data type) — so I learn from errors before hitting them for real.
-5. Keep it fast and direct. I am trying to learn as quickly as possible while still understanding it properly — don't slow me down with unnecessary theory, but don't skip anything important either.
-6. At the end, give me ONE simple question to test if I actually understood it.
-7. Do not skip explaining any line, even simple ones.
-
-Here is my full roadmap, for context on why I'm learning each topic and where it fits in the bigger picture. Note: the 12-week structure is just for clarity — my real goal is to finish as fast as possible while still learning properly, then build both projects and get a backend developer job:
-
-[PASTE YOUR FULL ROADMAP TEXT HERE]
-
-Now here is today's specific topic and code. Explain everything inside it following all the rules above:
-
-[PASTE TODAY'S DAY NOTES HERE]. wait i paste today notes later next chat, analyse 12 weeks roadmap below--
-
-
 
 
 
