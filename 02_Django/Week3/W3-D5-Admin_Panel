@@ -1,0 +1,58 @@
+**W3-D5-Admin_Panel**
+
+**Today you learn:**
+- Registering a model so it shows in Django admin
+- Creating a superuser (admin login)
+- Adding/editing records through the admin UI
+
+---
+
+**1. Register the model**
+
+`blog/admin.py`:
+```python
+from django.contrib import admin
+from .models import Post
+
+admin.site.register(Post)   # this makes Post visible/editable in admin panel
+```
+
+---
+
+**2. Create superuser**
+
+```bash
+python manage.py createsuperuser
+```
+```text
+# enter username, email, password when prompted
+```
+
+---
+
+**3. Run server and login**
+
+```bash
+python manage.py runserver
+```
+```text
+# visit http://127.0.0.1:8000/admin/
+# login with superuser credentials
+# you'll see "Post" listed - click it to add/edit/delete rows visually
+```
+
+---
+
+**4. Customize admin display (optional but useful)**
+
+```python
+class PostAdmin(admin.ModelAdmin):
+    list_display = ("title", "created_at")  # shows these columns in admin list view
+    search_fields = ("title",)               # adds a search box
+
+admin.site.register(Post, PostAdmin)   # register with customization instead of default
+```
+
+---
+
+Any doubts ask me. Say "W3 D6" when ready.
