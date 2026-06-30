@@ -1,5 +1,13 @@
-**W2-D5-Error_Handling_Try_Except**
-Goal: Real backend code crashes constantly without this — bad input, missing data, network failures. This is what keeps an API running instead of crashing on one bad request.
+**W2-D5-Error_Handling**
+
+**Today you learn:**
+- `try` / `except` / `finally`
+- Handling specific errors (ZeroDivisionError, ValueError)
+- `raise` for custom errors
+
+---
+
+**1. try/except basics**
 
 ```python
 def divide(a, b):
@@ -11,38 +19,47 @@ def divide(a, b):
     except TypeError:
         print("Error: Invalid input type")
     finally:
-        print("Division attempt finished")
+        print("Division attempt finished")  # always runs, success or fail
 
 divide(10, 2)
 divide(10, 0)
 divide(10, "two")
 ```
 
-`try` runs the risky code. `except ZeroDivisionError` catches that specific error type and handles it gracefully instead of crashing. You can stack multiple `except` blocks for different error types. `finally` always runs no matter what — whether it succeeded, failed, or crashed — useful for cleanup actions (like closing a file or database connection).
+---
+
+**2. raise for custom validation**
 
 ```python
-def get_user_age():
+def get_user_age(age):
     try:
-        age = int(input("Enter your age: "))
         if age < 0:
-            raise ValueError("Age cannot be negative")
+            raise ValueError("Age cannot be negative")  # trigger error on purpose
         print(f"Age accepted: {age}")
-    except ValueError as e:
+    except ValueError as e:  # 'as e' captures the error message
         print(f"Error: {e}")
+
+get_user_age(25)
+get_user_age(-5)
 ```
 
-`raise` lets YOU trigger an error on purpose when something is logically wrong, even if Python wouldn't normally crash on it (a negative age is valid Python, just invalid for your logic). `as e` captures the error message so you can print/use it.
+---
 
-Task: Write a function `safe_list_access(my_list, index)` that tries to return `my_list[index]`, and catches `IndexError` printing "Index out of range" if the index doesn't exist.
+**3. Safe list access**
 
-Task: Write a function `safe_divide_input()` that asks the user for two numbers using `input()`, converts them with `int()`, divides them, and handles both `ZeroDivisionError` and `ValueError` (in case they type letters instead of numbers).
+```python
+def safe_list_access(my_list, index):
+    try:
+        return my_list[index]
+    except IndexError:
+        print("Index out of range")
+        return None
 
-Task: Add a generic `except Exception as e:` as the last except block in any function above, printing `f"Unexpected error: {e}"` — this catches anything you didn't specifically plan for, as a safety net.
+numbers = [10, 20, 30]
+print(safe_list_access(numbers, 1))   # 20
+print(safe_list_access(numbers, 10))  # Index out of range
+```
 
-Break it: Remove the `except TypeError` block from `divide()`, keep everything else. Call `divide(10, "two")` again — see it crash uncaught this time, since nothing handles that specific error type anymore.
+---
 
-Real Coder Note: Never use a bare `except:` with nothing specified as your only error handling — it silently swallows every error including ones you didn't expect, making debugging nearly impossible later. Always catch specific errors first, generic `Exception` last as a safety net.
-
-Push to GitHub: `01_Python_OOP/Week2/day5.py` + paste this block into `01_Python_OOP/Week2/notes.md`
-
-Say "Day 6" when done.
+Any doubts ask me. Say "W2 D6" when ready.
