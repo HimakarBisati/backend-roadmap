@@ -1,36 +1,40 @@
 **W1-D4-Class_Methods_Employee**
-Goal: Class variables/methods share data across ALL objects, not just one — useful for counters, configs, and alternate ways to create objects.
+
+**Today you learn:**
+- Class variables (shared across all objects)
+- `@classmethod` and `cls`
+- Alternate way to create objects
+
+---
+
+**1. Employee**
 
 ```python
 class Employee:
-    total_employees = 0
+    total_employees = 0  # class variable - shared by ALL objects, not separate per object
 
     def __init__(self, name, salary):
         self.name = name
         self.salary = salary
-        Employee.total_employees += 1
+        Employee.total_employees += 1  # increase shared counter every time object is created
 
     @classmethod
-    def get_total_employees(cls):
+    def get_total_employees(cls):  # cls refers to the class itself, not one object
         return cls.total_employees
+
+    @classmethod
+    def from_string(cls, data_string):  # alternate way to create an Employee
+        name, salary = data_string.split("-")
+        return cls(name, int(salary))  # builds and returns a new Employee object
 
 e1 = Employee("Ravi", 30000)
 e2 = Employee("Sai", 40000)
-e3 = Employee("Anu", 35000)
+e3 = Employee.from_string("Kiran-28000")  # created using classmethod instead of normal way
 
-print(Employee.get_total_employees())
+print(Employee.get_total_employees())  # 3
+print(e3.name, e3.salary)
 ```
 
-Task: Add a class variable `company_name = "TechCorp"`, accessible as `Employee.company_name` without creating any object.
+---
 
-Task: Add a classmethod `from_string(cls, data_string)` that takes a string like `"Ravi-30000"`, splits it with `.split("-")`, and returns a new Employee built from those two parts. Test: `e4 = Employee.from_string("Kiran-28000")`.
-
-Task: Create 2 more employees, print `Employee.get_total_employees()` again to confirm the shared count kept growing.
-
-Break it: Change `Employee.total_employees += 1` to `self.total_employees += 1` — create 3 employees, then check `Employee.total_employees` directly. Notice it stays 0, while each object secretly made its own separate copy instead of sharing one.
-
-Real Coder Note: Use class variables only for data truly shared across all objects (counters, config) — mixing it up with instance data (`self.x`) is a common silent bug, no crash, just wrong numbers.
-
-Push to GitHub: `01_Python_OOP/Week1/day4.py` + paste this block into `01_Python_OOP/Week1/notes.md`
-
-Say "Day 5" when done.
+Any doubts ask me. Say "W1 D5" when ready.
