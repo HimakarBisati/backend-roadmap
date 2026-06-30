@@ -1,5 +1,12 @@
 **W2-D2-Multiple_Inheritance_Employee**
-Goal: One child class can extend a parent further, adding its own extra attributes — this is how you'll model different user types (Admin/Company/Candidate) in your Project 1 later.
+
+**Today you learn:**
+- `super()` — calling parent's method from child
+- Child class adding extra attributes on top of parent
+
+---
+
+**1. Employee → Manager, Developer**
 
 ```python
 class Employee:
@@ -10,14 +17,16 @@ class Employee:
     def info(self):
         print(f"{self.name} earns {self.salary}")
 
+
 class Manager(Employee):
     def __init__(self, name, salary, team_size):
-        super().__init__(name, salary)
-        self.team_size = team_size
+        super().__init__(name, salary)  # let parent set up name and salary
+        self.team_size = team_size      # add extra attribute
 
     def info(self):
-        super().info()
+        super().info()  # run parent's info() first
         print(f"Manages a team of {self.team_size}")
+
 
 class Developer(Employee):
     def __init__(self, name, salary, tech_stack):
@@ -28,6 +37,7 @@ class Developer(Employee):
         super().info()
         print(f"Works with: {self.tech_stack}")
 
+
 m1 = Manager("Ravi", 60000, 5)
 d1 = Developer("Sai", 50000, "Python, Django")
 
@@ -35,16 +45,6 @@ m1.info()
 d1.info()
 ```
 
-`super()` is new here — it calls the parent's version of a method from inside the child. `super().__init__(name, salary)` means "let the parent set up name and salary, I'll just add my extra stuff on top." Without it, you'd have to rewrite `self.name = name` and `self.salary = salary` again in every child — repeating code inheritance is supposed to avoid.
+---
 
-Task: Create a third child `Intern(Employee)` with an extra attribute `mentor`. Override `info()` to call `super().info()` then print `f"Mentored by {self.mentor}"`.
-
-Task: Add a method `give_raise(self, amount)` in the parent `Employee` class that adds `amount` to `self.salary`. Call it on a Manager and Developer object — confirm it works on both without being rewritten in either child.
-
-Break it: Remove `super().__init__(name, salary)` from Manager's `__init__`, keep `self.team_size = team_size`. Try `m1.info()` — see it crash since `self.name` and `self.salary` were never actually set.
-
-Real Coder Note: Always call `super().__init__()` first thing inside a child's `__init__` unless you have a specific reason not to — forgetting it is one of the most common inheritance bugs, and it fails silently until you try to use the missing attribute.
-
-Push to GitHub: `01_Python_OOP/Week2/day2.py` + paste this block into `01_Python_OOP/Week2/notes.md`
-
-Say "Day 3" when done.
+Any doubts ask me. Say "W2 D3" when ready.
