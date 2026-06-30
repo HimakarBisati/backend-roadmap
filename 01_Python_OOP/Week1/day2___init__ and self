@@ -1,0 +1,76 @@
+**W1-D2-Init_and_Self_BankAccount**
+
+**Today you learn:**
+- `__init__` and `self` deeper
+- Changing object state (data that updates over time)
+- Validation inside methods
+
+---
+
+**1. BankAccount**
+
+```python
+class BankAccount:
+    def __init__(self, owner, balance):
+        self.owner = owner
+        self.balance = balance  # starting balance saved on object
+
+    def deposit(self, amount):
+        if amount <= 0:
+            print("Invalid amount")  # validate before changing state
+            return
+        self.balance += amount  # update balance on this object
+        print(f"Deposited {amount}. New balance: {self.balance}")
+
+    def withdraw(self, amount):
+        if amount <= 0:
+            print("Invalid amount")
+            return
+        if amount > self.balance:
+            print("Insufficient funds")  # stop if not enough balance
+            return
+        self.balance -= amount
+        print(f"Withdrew {amount}. New balance: {self.balance}")
+
+    def show_balance(self):
+        print(f"{self.owner}'s balance: {self.balance}")
+
+acc1 = BankAccount("Ravi", 1000)
+acc2 = BankAccount("Sai", 500)
+
+acc1.deposit(200)
+acc1.withdraw(300)
+acc1.show_balance()
+
+acc2.withdraw(700)  # insufficient funds
+acc2.deposit(-50)   # invalid amount
+acc2.show_balance()
+```
+
+---
+
+**2. Transfer between accounts**
+
+```python
+    def transfer(self, other_account, amount):
+        if amount > self.balance:
+            print("Insufficient funds to transfer")
+            return
+        self.balance -= amount          # remove from this account
+        other_account.balance += amount # add to other account
+        print(f"Transferred {amount} to {other_account.owner}")
+
+# test
+acc1.transfer(acc2, 200)
+acc1.show_balance()
+acc2.show_balance()
+```
+
+---
+
+**Task:**
+Build a `Wallet` class yourself — attributes: `owner`, `balance`. Methods: `add_money()`, `spend_money()`, `show_balance()`. Add validation — block negative amounts and overspending.
+
+---
+
+Any doubts ask me. Say "W1 D3 notes" when ready.
