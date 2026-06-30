@@ -1,0 +1,74 @@
+**W3-D6-PostgreSQL_Setup**
+
+**Today you learn:**
+- Switching from SQLite (default) to PostgreSQL (real production database)
+- Connecting Django to PostgreSQL
+
+---
+
+**1. Install PostgreSQL and the Python connector**
+
+```bash
+# install PostgreSQL software itself (one-time, system level)
+# then inside your venv:
+pip install psycopg2-binary
+```
+
+---
+
+**2. Create a database in PostgreSQL**
+
+```bash
+psql -U postgres   # open postgres command line
+```
+```sql
+CREATE DATABASE myproject_db;
+```
+
+---
+
+**3. Update Django settings**
+
+`myproject/settings.py`:
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',  # changed from sqlite3
+        'NAME': 'myproject_db',
+        'USER': 'postgres',
+        'PASSWORD': 'your_password',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+```
+
+---
+
+**4. Run migrations again — this time on PostgreSQL**
+
+```bash
+python manage.py makemigrations
+python manage.py migrate   # creates all tables fresh inside PostgreSQL this time
+```
+
+```text
+# this is why we wrote models.py and ran migrate earlier on SQLite -
+# the same model code, same commands, now just point to a different database
+```
+
+---
+
+**5. Confirm it worked**
+
+```bash
+python manage.py createsuperuser   # create again since it's a fresh database
+python manage.py runserver
+```
+```text
+# visit /admin/, add a Post - this row now lives in PostgreSQL, not SQLite
+```
+
+---
+
+Any doubts ask me. Say "W3 D7" when ready.
