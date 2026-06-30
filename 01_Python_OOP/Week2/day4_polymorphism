@@ -1,10 +1,18 @@
 **W2-D4-Polymorphism_Shape**
-Goal: Polymorphism means the same method name behaves differently depending on the object calling it — this is how Django's `.save()` works the same way across completely different models.
+
+**Today you learn:**
+- Same method name, different behaviour depending on object
+- Looping through different objects, calling same method
+
+---
+
+**1. Shape → Circle, Square, Rectangle**
 
 ```python
 class Shape:
     def area(self):
         return 0
+
 
 class Circle(Shape):
     def __init__(self, radius):
@@ -13,6 +21,7 @@ class Circle(Shape):
     def area(self):
         return 3.14 * self.radius * self.radius
 
+
 class Square(Shape):
     def __init__(self, side):
         self.side = side
@@ -20,22 +29,22 @@ class Square(Shape):
     def area(self):
         return self.side * self.side
 
-shapes = [Circle(5), Square(4), Circle(2)]
+
+class Rectangle(Shape):
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+
+    def area(self):
+        return self.width * self.height
+
+
+shapes = [Circle(5), Square(4), Rectangle(3, 6)]
 
 for shape in shapes:
-    print(f"{type(shape).__name__} area: {shape.area()}")
+    print(f"{type(shape).__name__} area: {shape.area()}")  # same .area() call works for all, each gives different result
 ```
 
-This loop is the actual point of polymorphism — you call `.area()` on every object the exact same way, without checking "is this a Circle or Square first." Each object knows how to handle its own `.area()` correctly. `type(shape).__name__` just prints the class name as text, useful for labeling output.
+---
 
-Task: Add a third class `Rectangle(Shape)` with `width` and `height`, override `area()` as `width * height`. Add a Rectangle object to the `shapes` list and confirm the same loop works without changes.
-
-Task: Add a `perimeter()` method to each class (Circle: `2 * 3.14 * radius`, Square: `4 * side`, Rectangle: `2 * (width + height)`). Print perimeter for each shape in the same loop style.
-
-Break it: Remove `area()` from `Square` entirely, keep `class Square(Shape):` with just `__init__`. Run the loop again — see it print `0` for Square's area, since it falls back to the parent `Shape.area()` instead of crashing. Notice this is a silent bug, not a crash — exactly the dangerous kind from earlier days.
-
-Real Coder Note: Polymorphism is what lets you write one loop/function that works on many different object types — if you find yourself writing `if type(x) == Circle: ... elif type(x) == Square: ...`, you're missing the point of polymorphism. Let each class handle its own behavior.
-
-Push to GitHub: `01_Python_OOP/Week2/day4.py` + paste this block into `01_Python_OOP/Week2/notes.md`
-
-Say "Day 5" when done.
+Any doubts ask me. Say "W2 D5" when ready.
