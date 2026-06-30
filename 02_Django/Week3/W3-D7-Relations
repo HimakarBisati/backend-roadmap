@@ -1,0 +1,82 @@
+**W3-D7-Relations**
+
+**Today you learn:**
+- ForeignKey — one-to-many relationship
+- ManyToMany — many-to-many relationship
+- Querying both
+
+---
+
+**1. ForeignKey — User has many Posts**
+
+```python
+from django.contrib.auth.models import User
+from django.db import models
+
+class Post(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    author = models.ForeignKey(User, on_delete=models.CASCADE)  # links each Post to one User
+    # on_delete=CASCADE means: if that User is deleted, delete their Posts too
+```
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+---
+
+**2. Create and query ForeignKey**
+
+```python
+from django.contrib.auth.models import User
+from blog.models import Post
+
+user1 = User.objects.create_user(username="ravi", password="pass123")
+Post.objects.create(title="My Post", content="Hello", author=user1)
+
+# query forward - get the author of a post
+post = Post.objects.first()
+print(post.author.username)
+
+# query backward - get all posts by a user (related_name not set, so default is post_set)
+user1.post_set.all()
+```
+
+---
+
+**3. ManyToMany — Post has many Tags**
+
+```python
+class Tag(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+class Post(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    tags = models.ManyToManyField(Tag)   # a post can have many tags, a tag can belong to many posts
+```
+
+---
+
+**4. Create and query ManyToMany**
+
+```python
+tag1 = Tag.objects.create(name="Python")
+tag2 = Tag.objects.create(name="Django")
+
+post = Post.objects.first()
+post.tags.add(tag1, tag2)   # attach tags to a post
+
+post.tags.all()              # all tags on this post
+tag1.post_set.all()          # all posts with this tag
+```
+
+---
+
+Any doubts ask me. Week 3 done. Say "W4 D1" when ready.
