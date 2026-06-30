@@ -1,7 +1,13 @@
 **W2-D6-Modules_and_Packages**
-Goal: Real projects are never one giant file — splitting code into modules is how every Django project is structured (models.py, views.py, serializers.py, etc).
 
-Create two files in the same folder:
+**Today you learn:**
+- Splitting code into separate files
+- Importing your own modules
+- Installing external packages with pip
+
+---
+
+**1. Create separate files**
 
 `shapes.py`:
 ```python
@@ -18,31 +24,49 @@ def greet():
 
 `main.py`:
 ```python
-from shapes import Circle, greet
+from shapes import Circle, greet  # import only what you need
 
 c1 = Circle(5)
 print(c1.area())
 greet()
 ```
 
-Run `main.py`. Notice `shapes.py` is never run directly — it just gets imported, and only the things you import (`Circle`, `greet`) become usable in `main.py`.
+---
 
-Task: Create a third file `bank.py` with your `BankAccount` class from Week 1 (the private-balance version from Day 3). Import it into `main.py` and create/test an account from there.
+**2. Package (folder of modules)**
 
-Task: Create a folder named `utils` with a file `helpers.py` inside it containing one simple function, e.g. `def square(n): return n * n`. Add an empty `__init__.py` file in that same `utils` folder (this is what makes Python treat the folder as a package, importable). Import and use `square()` in `main.py` like: `from utils.helpers import square`.
+```
+utils/
+    __init__.py        # empty file - makes this folder a package
+    helpers.py
+```
 
-Task: Install a real external package using pip — run `pip install requests` in your terminal, then in `main.py` write:
+`utils/helpers.py`:
+```python
+def square(n):
+    return n * n
+```
+
+`main.py`:
+```python
+from utils.helpers import square
+print(square(5))  # 25
+```
+
+---
+
+**3. Installing external packages**
+
+```bash
+pip install requests
+```
+
 ```python
 import requests
 response = requests.get("https://api.github.com")
-print(response.status_code)
+print(response.status_code)  # 200 - confirms package works same as your own modules
 ```
-This confirms pip-installed packages work the same way as your own modules — just imported.
 
-Break it: Remove the `__init__.py` file from the `utils` folder, try importing `from utils.helpers import square` again — in older Python this would fail; in Python 3.3+ it usually still works (implicit namespace packages) but explicitly adding `__init__.py` is still standard practice in real projects, so keep it even though it "works" without it sometimes.
+---
 
-Real Coder Note: Splitting code into modules/files isn't optional once a project grows — one giant file with 500 lines is unreadable and unmaintainable. Get comfortable with imports now, since every Django app you build next is just multiple files importing from each other.
-
-Push to GitHub: `01_Python_OOP/Week2/day6.py`, `01_Python_OOP/Week2/shapes.py`, `01_Python_OOP/Week2/bank.py`, `01_Python_OOP/Week2/utils/helpers.py` + paste this block into `01_Python_OOP/Week2/notes.md`
-
-Say "Day 7" when done.
+Any doubts ask me. Say "W2 D7" when ready.
