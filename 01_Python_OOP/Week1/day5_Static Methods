@@ -1,43 +1,50 @@
 **W1-D5-Static_Methods_Employee**
-Goal: Static methods are utility/helper functions that live inside a class but don't need any object's or class's data — useful for validation, calculations, formatting.
+
+**Today you learn:**
+- `@staticmethod` — no `self`, no `cls`
+- When to use static methods (validation, helper logic)
+
+---
+
+**1. Employee (continued)**
 
 ```python
 class Employee:
     total_employees = 0
-    company_name = "TechCorp"
+    company_name = "TechCorp"  # class variable, accessible without creating any object
 
     def __init__(self, name, salary):
         self.name = name
         self.salary = salary
         Employee.total_employees += 1
+        if not self.is_valid_salary(salary):
+            print("Warning: invalid salary")
 
     @classmethod
     def get_total_employees(cls):
         return cls.total_employees
 
     @staticmethod
-    def is_valid_salary(salary):
+    def is_valid_salary(salary):  # no self, no cls - doesn't need any object's data
         return salary > 0
 
-e1 = Employee("Ravi", 30000)
-e2 = Employee("Sai", -5000)
+    @staticmethod
+    def calculate_bonus(salary, percentage):
+        return salary * (percentage / 100)
 
-print(Employee.is_valid_salary(e1.salary))
-print(Employee.is_valid_salary(e2.salary))
+    @staticmethod
+    def is_valid_name(name):
+        return name.isalpha() and len(name) > 0  # only letters, not empty
+
+e1 = Employee("Ravi", 30000)
+e2 = Employee("Sai", -5000)  # prints warning
+
+print(Employee.is_valid_salary(e1.salary))      # True
+print(Employee.calculate_bonus(30000, 10))      # 3000.0
+print(Employee.is_valid_name("Ravi123"))        # False
+print(Employee.company_name)                    # accessed without creating object
 ```
 
-Task: Add a staticmethod `calculate_bonus(salary, percentage)` → returns `salary * (percentage / 100)`. Test: `Employee.calculate_bonus(30000, 10)` should give `3000.0`.
+---
 
-Task: Add a staticmethod `is_valid_name(name)` → returns True if `name` is not empty and `name.isalpha()`, else False. Test with a few names, including one with numbers.
-
-Task: Inside `__init__`, call `is_valid_salary()` and print "Warning: invalid salary" if it's invalid. Keep this in final code.
-
-Break it: Remove `@staticmethod` from `is_valid_salary` but keep the method exactly the same (no self/cls added). Call `e1.is_valid_salary(5000)` — see it crash, since Python tries to auto-pass `e1` in but there's no parameter to catch it.
-
-Real Coder Note: Use static methods for logic that doesn't touch object or class data (validation, math, formatting) — keeps related helper functions organized inside the class instead of scattered as loose functions.
-
-Push to GitHub: `01_Python_OOP/Week1/day5.py` + paste this block into `01_Python_OOP/Week1/notes.md`
-
-Tomorrow is Day 6 — Practice Day, no new topic, rebuild BankAccount + Student + Employee from memory.
-
-Say "Day 6" when ready.
+Any doubts ask me. Say "W1 D6" when ready.
