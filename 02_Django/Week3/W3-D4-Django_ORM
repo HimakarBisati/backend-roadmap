@@ -1,0 +1,64 @@
+**W3-D4-Django_ORM**
+
+**Today you learn:**
+- Create, Read, Update, Delete (CRUD) using ORM
+- ORM = writing Python instead of raw SQL to talk to database
+
+---
+
+**1. Create**
+
+```python
+from blog.models import Post
+
+Post.objects.create(title="Second Post", content="Learning ORM")  # creates and saves in one line
+```
+
+---
+
+**2. Read**
+
+```python
+Post.objects.all()                      # get all rows
+Post.objects.first()                    # get first row
+Post.objects.get(id=1)                  # get one specific row by id - errors if not found or multiple found
+Post.objects.filter(title="Second Post") # get rows matching condition - returns a list, even if empty
+```
+
+---
+
+**3. Update**
+
+```python
+post = Post.objects.get(id=1)
+post.title = "Updated Title"   # change the attribute
+post.save()                    # save the change back to database
+```
+
+```python
+Post.objects.filter(id=1).update(title="Bulk Updated")  # updates without fetching object first
+```
+
+---
+
+**4. Delete**
+
+```python
+post = Post.objects.get(id=2)
+post.delete()   # removes that row from database
+```
+
+---
+
+**5. Common filter lookups**
+
+```python
+Post.objects.filter(title__contains="Post")     # title contains "Post"
+Post.objects.filter(id__gt=1)                    # id greater than 1
+Post.objects.exclude(id=1)                       # everything except id=1
+Post.objects.order_by("-created_at")             # newest first (- means descending)
+```
+
+---
+
+Any doubts ask me. Say "W3 D5" when ready.
