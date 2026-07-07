@@ -1,9 +1,7 @@
 **W1-D3-Instance_Methods_Student**
 
-**Today you learn:**
-- Methods calling other methods inside same class
-- `return` vs `print`
-- Decision making using object's own data
+**What are you learning today?**
+Methods that make decisions using the object's own data. New thing today: a method can call another method inside the same class. Also understanding `return` vs `print` properly — this is important because getting this wrong causes real bugs later.
 
 ---
 
@@ -13,13 +11,22 @@
 class Student:
     def __init__(self, name, marks):
         self.name = name
-        self.marks = marks  # list [80, 45, 60]
+        self.marks = marks  
+        # marks is a list — example: [80, 45, 60]
+        # one student can have marks for multiple subjects
 
     def average(self):
-        return sum(self.marks) / len(self.marks)  # return sends value back to whoever called it
+        return sum(self.marks) / len(self.marks)  
+        # sum() adds all numbers in the list — sum([80,45,60]) = 185
+        # len() counts how many numbers — len([80,45,60]) = 3
+        # 185 / 3 = 61.6
+        # return sends this number back — does NOT print it
+        # other methods need this number, so return is correct here, not print
 
     def result(self):
-        avg = self.average()  # calling another method inside same class
+        avg = self.average()  
+        # calling another method inside same class using self
+        # avg now holds the number returned by average()
         if avg >= 40:
             return "Pass"
         else:
@@ -34,20 +41,55 @@ class Student:
         elif avg >= 40:
             return "C"
         else:
-            return "F"
+            return "F"  # below 40
 
     def highest_mark(self):
-        return max(self.marks)  # max() finds highest in list
+        return max(self.marks)  
+        # max() is a built-in Python function
+        # finds highest number in a list automatically
 
     def lowest_mark(self):
-        return min(self.marks)  # min() finds lowest in list
+        return min(self.marks)  
+        # min() finds lowest number in list
 
 s1 = Student("Ravi", [80, 45, 60])
 s2 = Student("Sai", [30, 25, 35])
 
 print(s1.name, s1.result(), s1.grade(), s1.highest_mark(), s1.lowest_mark())
+# Ravi Pass B 80 45
+
 print(s2.name, s2.result(), s2.grade(), s2.highest_mark(), s2.lowest_mark())
+# Sai Fail F 35 25
 ```
+
+---
+
+**Why return not print inside average()**
+
+```python
+# WRONG — using print instead of return
+def average(self):
+    print(sum(self.marks) / len(self.marks))  
+    # value is displayed but immediately lost
+    # function returns None by default when no return statement
+
+def result(self):
+    avg = self.average()  
+    # avg is now None, not a number
+    if avg >= 40:         
+    # None >= 40 crashes with TypeError
+    # this is why return matters — result() needs the actual number
+        return "Pass"
+```
+
+---
+
+**Key things to remember:**
+- A method can call another method inside the same class using `self.methodname()`
+- `return` sends value back so other code can use it — `print` just displays and value is gone forever
+- `sum()` adds all items in a list, `len()` counts items, `max()` finds highest, `min()` finds lowest
+- Reuse methods instead of repeating logic — `grade()` and `result()` both call `self.average()` instead of each calculating average themselves
+- Django model methods work exactly this way — calculate something, return it, use it in views
 
 ---
 
