@@ -1,77 +1,127 @@
-**W1-D7-Mini_Project_Library**
+**W1-D7-Mini_Project_Library_System**
 
-**Today you learn:**
-- One class holding a list of other objects
-- This is exactly how Django models/tables work later
+**What are you learning today?**
+First time two classes work together — one class holds a list of objects from another class. This is exactly how Django works later: Library = database table, Book = one row in that table. `add_book`, `search_book`, `remove_book` = what Django ORM does automatically with `.save()`, `.filter()`, `.delete()`. Today you build the manual version so Django's shortcuts make sense later.
 
 ---
 
-**1. Book + Library**
+**1. Book class**
 
 ```python
 class Book:
     def __init__(self, title, author, is_available=True):
         self.title = title
         self.author = author
-        self.is_available = is_available
+        self.is_available = is_available  
+        # default value True — every book starts as available
+        # is_available=True means if you don't pass this value, it's automatically True
 
-    def __str__(self):  # controls what shows when you print the object directly
+    def __str__(self):  
+        # special method — controls what prints when you do print(book_object)
+        # without this, print(book) shows: <Book object at 0x...> — useless
+        # with this, print(book) shows: Atomic Habits by James Clear - Available
         status = "Available" if self.is_available else "Borrowed"
         return f"{self.title} by {self.author} - {status}"
+```
 
+---
 
+**2. Library class**
+
+```python
 class Library:
     def __init__(self):
-        self.books = []  # list will hold Book objects
+        self.books = []  
+        # empty list — will hold Book objects, not just strings
+        # this list IS the library's collection
 
     def add_book(self, book):
-        self.books.append(book)
+        self.books.append(book)  
+        # book here is a Book object, not just a title string
+        # appending the entire object so we can access all its attributes later
+        print(f"Added: {book.title}")
 
     def search_book(self, title):
-        for book in self.books:
-            if book.title == title:
-                return book
-        return None  # not found
+        for book in self.books:         # loop through every Book object in list
+            if book.title == title:     # compare title attribute of each object
+                return book             # return the entire Book object if found
+        return None                     # return None if not found — important to check this later
 
     def borrow_book(self, title):
+        book = self.search_book(title)  # reusing search_book instead of rewriting loop
+        if book is None:                # always check if search returned None
+            print("Book not found")
+            return
+        if book.is_available:           # check availability before borrowing
+            book.is_available = False   # change status on the Book object
+            print(f"Borrowed: {book.title}")
+        else:
+            print("Not available — already borrowed")
+
+    def return_book(self, title):
         book = self.search_book(title)
         if book is None:
             print("Book not found")
             return
-        if book.is_available:
-            book.is_available = False
-            print(f"Borrowed: {book.title}")
-        else:
-            print("Not available")
-
-    def return_book(self, title):
-        book = self.search_book(title)
-        if book:
-            book.is_available = True
-            print(f"Returned: {book.title}")
+        book.is_available = True        # set back to available
+        print(f"Returned: {book.title}")
 
     def remove_book(self, title):
         book = self.search_book(title)
-        if book:
-            self.books.remove(book)
-            print(f"Removed: {book.title}")
+        if book is None:
+            print("Book not found")
+            return
+        self.books.remove(book)         # remove the Book object from the list
+        print(f"Removed: {book.title}")
 
     def show_all_books(self):
         for book in self.books:
-            print(book)  # uses __str__ automatically
+            print(book)                 # print(book) automatically uses __str__ we defined in Book class
 
+    def available_books(self):
+        return [book for book in self.books if book.is_available]  
+        # list comprehension — short way to filter a list
+        # same as: loop through books, add to new list only if is_available is True
+```
 
+---
+
+**3. Test everything**
+
+```python
 lib = Library()
+
+# create Book objects and add to library
 lib.add_book(Book("Atomic Habits", "James Clear"))
 lib.add_book(Book("Python Basics", "John Doe"))
+lib.add_book(Book("Clean Code", "Robert Martin"))
 
-lib.show_all_books()
-lib.borrow_book("Atomic Habits")
-lib.show_all_books()
-lib.return_book("Atomic Habits")
+lib.show_all_books()         # all three books, all Available
+
+lib.borrow_book("Atomic Habits")     # borrowed
+lib.borrow_book("Atomic Habits")     # already borrowed — blocked
+lib.borrow_book("Harry Potter")      # not found — blocked
+
+lib.show_all_books()         # Atomic Habits shows Borrowed now
+
+lib.return_book("Atomic Habits")     # returned
+lib.show_all_books()         # Atomic Habits available again
+
 lib.remove_book("Python Basics")
-lib.show_all_books()
+lib.show_all_books()         # only two books left
+
+print(lib.available_books()) # shows only available books
 ```
+
+---
+
+**Key things to remember:**
+- One class can hold a list of objects from another class — this is how real systems are built
+- Always check `if book is None` after calling `search_book` — never assume search found something
+- `__str__` controls how an object prints — always add this to your classes, makes debugging much easier
+- `self.books.remove(book)` removes the actual object from the list, not just by name
+- List comprehension `[x for x in list if condition]` = short way to filter a list — you'll use this constantly in Django views
+- This entire Library system is what Django ORM gives you for free later — `.save()`, `.filter()`, `.delete()`, `.all()` — now you understand what's happening underneath
 
 ---
 
