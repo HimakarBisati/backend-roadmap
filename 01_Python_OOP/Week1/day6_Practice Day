@@ -1,12 +1,48 @@
 **W1-D6-Practice_Day**
 
-No new topic today. Rebuild from memory, no looking at old files:
+**What are you doing today?**
+No new topic. This is the most important day of the week. Rebuilding from memory is what separates "I followed along" from "I actually know this." Every gap you find today is better than finding it in an interview.
 
-- BankAccount (deposit, withdraw, transfer, validation)
-- Student (average, result, grade, highest, lowest)
-- Employee (class variable, classmethod, staticmethod)
+---
 
-After rebuilding, compare with your earlier files — wherever you got stuck is exactly what to revise.
+**Rebuild these three from memory, no looking at previous files:**
+
+**1. BankAccount**
+- `__init__` with owner and balance
+- `deposit` with validation (block zero and negative)
+- `withdraw` with validation (block zero, negative, overdraft)
+- `show_balance`
+- `transfer` to another account
+
+**2. Student**
+- `__init__` with name and marks list
+- `average` using sum() and len()
+- `result` calling self.average() — Pass/Fail
+- `grade` calling self.average() — A/B/C/F
+- `highest_mark` using max()
+- `lowest_mark` using min()
+
+**3. Employee**
+- class variable `total_employees`
+- class variable `company_name`
+- `__init__` incrementing total, validating salary
+- `@classmethod get_total_employees`
+- `@classmethod from_string` splitting a string to create object
+- `@staticmethod is_valid_salary`
+- `@staticmethod calculate_bonus`
+- `@staticmethod is_valid_name`
+
+---
+
+**After rebuilding all three:**
+Open your earlier files and compare. Wherever you got stuck or wrote something wrong — that is exactly what you don't know yet. Go back and re-read just that part.
+
+---
+
+**Key things to remember:**
+- Rebuilding from memory is how real coders actually retain knowledge — not re-reading notes
+- Gaps found today through practice are better than gaps found in interviews
+- If you couldn't rebuild something, re-read that day's notes once, then try again without looking
 
 ---
 
