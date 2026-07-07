@@ -1,33 +1,45 @@
 **W1-D1-Classes_and_Objects**
 
-**Today you learn:**
-- Class & Object
-- `__init__` and `self`
-- Instance methods
+**What is a Class and Object?**
+Class = blueprint. Object = real thing built from that blueprint.
+Example: `Car` is the blueprint. `car1 = Car(...)` is one real car built from it.
+You can create many objects from one class — each holds its own separate data.
 
 ---
 
 **1. Car**
 
 ```python
-class Car:  # blueprint
-    def __init__(self, brand, model, year):  # runs when object created
-        self.brand = brand  # save to this object
-        self.model = model
-        self.year = year
+class Car:  # creating a blueprint called Car
+    
+    def __init__(self, brand, model, year):  
+        # __init__ runs automatically the moment you create an object
+        # self = this specific object (car1 or car2, whoever is being created)
+        self.brand = brand  # permanently save brand on this object
+        self.model = model  # permanently save model on this object
+        self.year = year    # permanently save year on this object
+        # without self.x = x, the value is lost after __init__ finishes
 
-    def display_info(self):  # method = function inside class
+    def display_info(self):  
+        # method = function that belongs to this class
+        # self gives access to this object's own saved data
         print(f"{self.year} {self.brand} {self.model}")
 
     def is_new(self):
-        return self.year >= 2023  # True or False
+        return self.year >= 2023  
+        # return sends value back to whoever called it
+        # True if year is 2023 or above, False if not
 
-car1 = Car("Toyota", "Corolla", 2022)
-car2 = Car("Honda", "Civic", 2023)
-car1.display_info()
-car2.display_info()
-print(car1.is_new())
-print(car2.is_new())
+car1 = Car("Toyota", "Corolla", 2022)  
+# creates object, automatically runs __init__, saves brand/model/year on car1
+
+car2 = Car("Honda", "Civic", 2023)    
+# completely separate object, changing car1 never affects car2
+
+car1.display_info()  # prints: 2022 Toyota Corolla
+car2.display_info()  # prints: 2023 Honda Civic
+print(car1.is_new()) # False — 2022 is not >= 2023
+print(car2.is_new()) # True — 2023 is >= 2023
 ```
 
 ---
@@ -37,19 +49,20 @@ print(car2.is_new())
 ```python
 class Person:
     def __init__(self, name, age, city):
-        self.name = name
+        self.name = name  # save name on this person object
         self.age = age
         self.city = city
 
     def introduce(self):
+        # uses this object's own saved data to print introduction
         print(f"Hi I'm {self.name}, {self.age}, from {self.city}")
 
     def is_adult(self):
-        return self.age >= 18
+        return self.age >= 18  # True if 18 or above, False if not
 
 p1 = Person("Ravi", 22, "Hyderabad")
-p1.introduce()
-print(p1.is_adult())
+p1.introduce()       # Hi I'm Ravi, 22, from Hyderabad
+print(p1.is_adult()) # True
 ```
 
 ---
@@ -63,12 +76,22 @@ class Animal:
         self.species = species
 
     def make_sound(self):
-        print("Some generic animal sound")
+        print("Some generic animal sound")  
+        # every animal prints same sound for now
+        # in Week 2 each animal gets its own sound using inheritance
 
 a1 = Animal("Rex", "Dog")
-a1.make_sound()
+a1.make_sound()  # Some generic animal sound
 ```
 
 ---
 
-Any doubts ask me. Say "W1 D2" when ready.
+**Key things to remember:**
+- `self` = this specific object. Never forget it as first parameter in every method.
+- `self.x = x` inside `__init__` = permanently store value on object.
+- `return` sends value back so other code can use it. `print` just displays and value disappears.
+- Django models, views, serializers are all classes — this exact pattern repeats everywhere later.
+
+---
+
+Any doubts ask me. Say "W1 D2 notes" when ready.
