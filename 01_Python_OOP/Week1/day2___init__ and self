@@ -1,9 +1,7 @@
 **W1-D2-BankAccount**
 
-**Today you learn:**
-- Updating object data (state)
-- Validation inside methods
-- Methods working together
+**What are you learning today?**
+How an object's data changes over time (called state). Yesterday's Car/Person data never changed after creation. Today BankAccount balance changes every time you deposit or withdraw. This is exactly how a database record works in Django — data stored, updated, retrieved over time.
 
 ---
 
@@ -12,48 +10,73 @@
 ```python
 class BankAccount:
     def __init__(self, owner, balance):
-        self.owner = owner
-        self.balance = balance  # starting balance
+        self.owner = owner      # save owner name on this object
+        self.balance = balance  # save starting balance on this object
 
     def deposit(self, amount):
-        if amount <= 0:
+        if amount <= 0:         # validate first — never trust input blindly
             print("Invalid amount")
-            return
-        self.balance += amount  # update balance on this object
+            return              # stop here, don't continue
+        self.balance += amount  # update balance on this specific object
+        # self.balance += amount is same as self.balance = self.balance + amount
         print(f"Deposited {amount}. New balance: {self.balance}")
 
     def withdraw(self, amount):
         if amount <= 0:
             print("Invalid amount")
             return
-        if amount > self.balance:
+        if amount > self.balance:   # check if enough balance exists
             print("Insufficient funds")
             return
-        self.balance -= amount
+        self.balance -= amount      # subtract from balance
         print(f"Withdrew {amount}. New balance: {self.balance}")
 
     def show_balance(self):
+        # just reads and displays current balance — doesn't change anything
         print(f"{self.owner}'s balance: {self.balance}")
 
+acc1 = BankAccount("Ravi", 1000)  # acc1 starts with balance 1000
+acc2 = BankAccount("Sai", 500)   # acc2 starts with balance 500
+
+acc1.deposit(200)    # balance becomes 1200
+acc1.withdraw(300)   # balance becomes 900
+acc1.show_balance()  # Ravi's balance: 900
+
+acc2.withdraw(700)   # blocked — only has 500, prints Insufficient funds
+acc2.deposit(-50)    # blocked — invalid amount
+acc2.show_balance()  # Sai's balance: 500, unchanged
+```
+
+---
+
+**2. Transfer between two accounts**
+
+```python
     def transfer(self, other_account, amount):
+        # self = account sending money
+        # other_account = account receiving money
         if amount > self.balance:
             print("Insufficient funds to transfer")
             return
-        self.balance -= amount           # remove from this account
-        other_account.balance += amount  # add to other account
+        self.balance -= amount           # remove from sender
+        other_account.balance += amount  # add to receiver
+        # notice: one method works on TWO objects at once
         print(f"Transferred {amount} to {other_account.owner}")
 
-acc1 = BankAccount("Ravi", 1000)
-acc2 = BankAccount("Sai", 500)
-
-acc1.deposit(200)
-acc1.withdraw(300)
-acc1.show_balance()
-acc2.withdraw(700)   # insufficient funds
-acc1.transfer(acc2, 100)
-acc1.show_balance()
-acc2.show_balance()
+# test transfer
+acc1.transfer(acc2, 100)  # sends 100 from acc1 to acc2
+acc1.show_balance()       # acc1 reduced by 100
+acc2.show_balance()       # acc2 increased by 100
 ```
+
+---
+
+**Key things to remember:**
+- `self.balance += amount` updates data permanently on the object — this is state changing over time
+- Always validate input before changing state — negative amounts, overdrafts, empty values
+- One method can work on multiple objects at once (`transfer` touches both sender and receiver)
+- `return` inside a method stops execution immediately — nothing after it runs
+- This same pattern appears in Django views — validate request data before saving to database
 
 ---
 
