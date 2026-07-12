@@ -1,4 +1,4 @@
-# WEEK 1 — PYTHON OOP — CLASSES & METHODS
+ # WEEK 1 — PYTHON OOP — CLASSES & METHODS
 
 | Day     | What To Do                                                                                       |
 | ------- | ------------------------------------------------------------------------------------------------ |
