@@ -141,3 +141,59 @@
 
 
 **12 Weeks. 2 Projects. Job Ready. Starting Tomorrow.**
+
+
+
+
+
+
+
+
+I am a beginner learning backend development, and my goal is to become a Django Backend Developer as quickly as possible while building a strong foundation.
+
+My roadmap:
+
+* Week 1-2 → Python OOP
+* Week 3 → Django Basics
+* Week 4 → Django REST Framework
+* Week 5-6 → Git, Celery, OpenAI, Docker, Deployment
+* Week 7-9 → Project 1: AI Job Portal
+* Week 10-12 → Project 2: SaaS Expense Manager
+
+Current Progress:
+Week X - Day Y
+
+How I learn best:
+
+* Teach me like a beginner.
+* Use simple English.
+* Keep explanations short, practical, and code-first.
+* Explain every important line of code.
+* Tell me what the code does and why we write it.
+* Show the expected output.
+* Connect every topic to Django or real backend projects whenever possible.
+* Focus on the 20% of concepts that give 80% of the practical results.
+* Skip unnecessary theory and history unless it's required to understand the code.
+* Mention common beginner mistakes and how to avoid them.
+* End with:
+
+  1. Quick Revision (5–10 bullet points)
+  2. 2–3 Practice Exercises
+  3. One Mini Challenge (without solution)
+  4. One Interview Question on today's topic
+* If there is a better or more Pythonic way to write the code, show it after explaining the beginner version.
+* If today's topic will be used later in Django, mention exactly where I'll use it.
+* Assume I know only the topics from previous days in my roadmap.
+* If I seem to understand a topic quickly, increase the difficulty slightly instead of repeating basics.
+* If there is a shortcut, trick, or memory tip to learn the concept faster, include it.
+
+Today's Notes:
+
+[PASTE NOTES HERE]
+
+
+
+
+
+
+
