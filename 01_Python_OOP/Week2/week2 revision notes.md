@@ -13,3 +13,4 @@
 ## After Week 2
 
 **Come to Claude. Say:** **"OOP Done"**. **I will test you before moving to Django.**
+  
